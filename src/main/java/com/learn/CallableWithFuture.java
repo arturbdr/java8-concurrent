@@ -6,6 +6,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.stream.IntStream;
 
+import static com.learn.utils.ConcurrentUtils.stop;
+
 public class CallableWithFuture {
 
     public static void main(String[] args) {
@@ -29,6 +31,9 @@ public class CallableWithFuture {
                     } catch (Exception e) {
                         e.printStackTrace();
 
+                    }
+                    finally {
+                        stop(executor);
                     }
                 });
     }
