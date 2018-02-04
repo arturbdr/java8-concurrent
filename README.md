@@ -1,0 +1,1 @@
+Project containing Java 8 Concurrent implementation and example of possible issues 
