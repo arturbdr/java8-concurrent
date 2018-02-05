@@ -8,7 +8,7 @@ public class ConcurrentUtils {
     public static void stop(ExecutorService executor) {
         try {
             executor.shutdown();
-            executor.awaitTermination(60, TimeUnit.SECONDS);
+            executor.awaitTermination(20, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             System.err.println("termination interrupted");
         } finally {
@@ -22,6 +22,14 @@ public class ConcurrentUtils {
     public static void sleep(int seconds) {
         try {
             TimeUnit.SECONDS.sleep(seconds);
+        } catch (InterruptedException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    public static void sleep(int value, TimeUnit timeUnit) {
+        try {
+            timeUnit.sleep(value);
         } catch (InterruptedException e) {
             throw new IllegalStateException(e);
         }
