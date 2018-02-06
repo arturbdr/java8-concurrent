@@ -19,14 +19,14 @@ public class RacingConditionFixedWithReentrantLock {
     }
 
     private void test() {
-        ExecutorService executor = Executors.newFixedThreadPool(5);
+        ExecutorService executor = Executors.newFixedThreadPool(10);
 
-        IntStream.range(0, 1000)
+        IntStream.range(0, 10000)
                 .forEach(i -> executor.submit(this::increment));
 
         stop(executor);
 
-        System.out.println(count);
+        System.out.println(count); // 10000
     }
 
     private void increment() {
