@@ -29,11 +29,11 @@ public class RacingConditionFixedWithConcurrentMap {
             });
         });
 
-//        Runnable read = () -> {
-//            System.out.println("concurrentHashMap = " + concurrentHashMap.get(NUMBER));
-//        };
-//
-//        executorService.submit(read);
+        Runnable read = () -> {
+            System.out.println("concurrentHashMap = " + concurrentHashMap.get(NUMBER));
+        };
+
+        executorService.submit(read);
         stop(executorService);
 
     }
