@@ -1,13 +1,13 @@
 package com.learn;
 
+import static com.learn.utils.ConcurrentUtils.sleep;
+import static com.learn.utils.ConcurrentUtils.stop;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.stream.IntStream;
-
-import static com.learn.utils.ConcurrentUtils.sleep;
-import static com.learn.utils.ConcurrentUtils.stop;
 
 
 public class RacingConditionFixedWithReadWriteLock {
