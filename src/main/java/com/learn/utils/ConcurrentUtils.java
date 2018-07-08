@@ -1,8 +1,13 @@
 package com.learn.utils;
 
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
+@NoArgsConstructor
+@Slf4j
 public class ConcurrentUtils {
 
     public static void stop(ExecutorService executor) {
@@ -10,10 +15,10 @@ public class ConcurrentUtils {
             executor.shutdown();
             executor.awaitTermination(20, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            System.err.println("termination interrupted");
+            log.error("Termination Interrupted", e);
         } finally {
             if (!executor.isTerminated()) {
-                System.err.println("killing non-finished tasks");
+                log.warn("killing non-finished tasks");
             }
             executor.shutdownNow();
         }
