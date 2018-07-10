@@ -1,7 +1,10 @@
 package com.learn;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class RunnableTaskJava8Style {
 
     public static void main(String[] args) {
@@ -12,17 +15,17 @@ public class RunnableTaskJava8Style {
         new Thread(task).start();
         new Thread(run2).start();
 
-        System.out.println("End of main method!");
+        log.info("End of main method!");
     }
 
     static void magageThread() {
         try {
             String name = Thread.currentThread().getName();
-            System.out.println("Thread Name moment 1 " + name);
+            log.info("Thread Name moment 1 {}", name);
             TimeUnit.SECONDS.sleep(1);
-            System.out.println("Thread Name moment 2 " + name);
+            log.info("Thread Name moment 2 {}", name);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.error("failed", e);
         }
     }
 }

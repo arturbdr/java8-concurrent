@@ -1,5 +1,7 @@
 package com.learn;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -8,6 +10,7 @@ import java.util.stream.IntStream;
 
 import static com.learn.utils.ConcurrentUtils.stop;
 
+@Slf4j
 public class CallableWithFuture {
 
     public static void main(String[] args) {
@@ -16,23 +19,22 @@ public class CallableWithFuture {
         IntStream.range(0, 5)
                 .forEach(num -> {
 
-                    System.out.println("num = " + num);
+                    log.info("num = {}", num);
                     Callable<Integer> task = () -> {
                         return 1 + num;
                     };
 
                     Future<Integer> future = executor.submit(task);
-                    System.out.println("future isDone? = " + future.isDone());
+                    log.info("future isDone? = {}", future.isDone());
 
                     try {
                         Integer taskResult = future.get();
-                        System.out.println("future isDone? = " + future.isDone());
-                        System.out.println("taskResult = " + taskResult);
+                        log.info("future isDone? = {} ", future.isDone());
+                        log.info("taskResult = {}", taskResult);
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        log.error("failed", e);
 
-                    }
-                    finally {
+                    } finally {
                         stop(executor);
                     }
                 });

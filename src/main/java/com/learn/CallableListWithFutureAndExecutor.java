@@ -1,5 +1,7 @@
 package com.learn;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -7,6 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+@Slf4j
 public class CallableListWithFutureAndExecutor {
 
     public static void main(String[] args) throws InterruptedException {
@@ -33,7 +36,7 @@ public class CallableListWithFutureAndExecutor {
                         throw new IllegalStateException(e);
                     }
                 })
-                .forEach(future -> System.out.println("functional future = " + future));
+                .forEach(future -> log.info("functional future = {}", future));
 
 
         // Less functional
@@ -43,10 +46,10 @@ public class CallableListWithFutureAndExecutor {
                     try {
                         return future.get();
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        log.error("failed", e);
                         return "error!";
                     }
                 })
-                .forEach(future -> System.out.println("future = " + future));
+                .forEach(future -> log.info("future = {}", future));
     }
 }
