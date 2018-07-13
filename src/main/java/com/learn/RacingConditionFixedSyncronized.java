@@ -1,12 +1,14 @@
 package com.learn;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
 
 import static com.learn.utils.ConcurrentUtils.stop;
 
-
+@Slf4j
 public class RacingConditionFixedSyncronized {
     private int count = 0;
 
@@ -24,7 +26,7 @@ public class RacingConditionFixedSyncronized {
 
         stop(executor);
 
-        System.out.println(count); // No more random number. It will print 100000 but with a slower performance
+        log.info("count {}", count); // No more random number. It will print 100000 but with a slower performance
     }
 
     private synchronized void increment() {

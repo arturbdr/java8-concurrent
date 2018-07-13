@@ -1,5 +1,7 @@
 package com.learn;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.StampedLock;
@@ -7,7 +9,7 @@ import java.util.stream.IntStream;
 
 import static com.learn.utils.ConcurrentUtils.stop;
 
-
+@Slf4j
 public class RacingConditionFixedStampedLock {
     private final StampedLock lock = new StampedLock();
     private final ExecutorService executor = Executors.newFixedThreadPool(50);
@@ -31,7 +33,7 @@ public class RacingConditionFixedStampedLock {
         Runnable readTask = () -> {
             long stamp = lock.readLock();
             try {
-                System.out.println(number);
+                log.info("number {}", number);
             } finally {
                 lock.unlockRead(stamp);
             }
@@ -40,7 +42,7 @@ public class RacingConditionFixedStampedLock {
         executor.submit(readTask);
         executor.submit(readTask);
 
-        System.out.println("probably wrong " + number);
+        log.error("probably wrong {}", number);
         stop(executor);
 
     }
