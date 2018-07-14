@@ -1,5 +1,7 @@
 package com.learn;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -7,7 +9,7 @@ import java.util.stream.IntStream;
 
 import static com.learn.utils.ConcurrentUtils.stop;
 
-
+@Slf4j
 public class RacingConditionFixedWithAtomicInteger {
     private final ExecutorService executor = Executors.newFixedThreadPool(50);
     private AtomicInteger number = new AtomicInteger(0);
@@ -28,8 +30,8 @@ public class RacingConditionFixedWithAtomicInteger {
         }));
 
         Runnable readTask = () -> {
-            System.out.println("number.get() " + number.get());
-            System.out.println("comumInt = " + comumInt);
+            log.info("number.get() {}", number.get());
+            log.info("comumInt = {}", comumInt);
         };
 
         executor.submit(readTask);
