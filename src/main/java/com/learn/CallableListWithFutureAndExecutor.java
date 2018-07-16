@@ -16,15 +16,9 @@ public class CallableListWithFutureAndExecutor {
         ExecutorService executor = Executors.newWorkStealingPool();
 
         List<Callable<String>> callables = Arrays.asList(
-                () -> {
-                    return "task 1";
-                },
-                () -> {
-                    return "task 2";
-                },
-                () -> {
-                    return "task 3";
-                });
+                () -> "task 1",
+                () -> "task 2",
+                () -> "task 3");
 
         // All instructions as functional
         executor.invokeAll(callables)

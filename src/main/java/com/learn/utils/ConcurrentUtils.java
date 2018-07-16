@@ -1,13 +1,14 @@
 package com.learn.utils;
 
+import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
-@NoArgsConstructor
 @Slf4j
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ConcurrentUtils {
 
     public static void stop(ExecutorService executor) {

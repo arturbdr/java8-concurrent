@@ -20,9 +20,7 @@ public class CallableWithFuture {
                 .forEach(num -> {
 
                     log.info("num = {}", num);
-                    Callable<Integer> task = () -> {
-                        return 1 + num;
-                    };
+                    Callable<Integer> task = () -> 1 + num;
 
                     Future<Integer> future = executor.submit(task);
                     log.info("future isDone? = {}", future.isDone());

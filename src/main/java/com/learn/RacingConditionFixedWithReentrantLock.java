@@ -1,5 +1,7 @@
 package com.learn;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
@@ -7,9 +9,9 @@ import java.util.stream.IntStream;
 
 import static com.learn.utils.ConcurrentUtils.stop;
 
-
+@Slf4j
 public class RacingConditionFixedWithReentrantLock {
-    ReentrantLock lock = new ReentrantLock();
+    private ReentrantLock lock = new ReentrantLock();
     private int count = 0;
 
     public static void main(String[] args) {
@@ -26,7 +28,7 @@ public class RacingConditionFixedWithReentrantLock {
 
         stop(executor);
 
-        System.out.println(count); // 10000
+        log.info("count {}", count); // 10000
     }
 
     private void increment() {
