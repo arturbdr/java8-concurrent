@@ -1,5 +1,7 @@
 package com.learn;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
@@ -10,6 +12,7 @@ import static com.learn.utils.ConcurrentUtils.stop;
 /**
  * Loosing the correct count due to race condition
  */
+@Slf4j
 public class RacingConditionProblem {
     private int count = 0;
 
@@ -27,7 +30,7 @@ public class RacingConditionProblem {
 
         stop(executor);
 
-        System.out.println(count); // Will print a random number. Usually below 100000 due to racing conditions
+        log.info("{}", count); // Will print a random number. Usually below 100000 due to racing conditions
     }
 
     private void increment() {
