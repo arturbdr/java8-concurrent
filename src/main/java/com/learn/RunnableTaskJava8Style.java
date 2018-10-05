@@ -8,9 +8,9 @@ import java.util.concurrent.TimeUnit;
 public class RunnableTaskJava8Style {
 
     public static void main(String[] args) {
-        Runnable task = () -> magageThread();
+        Runnable task = RunnableTaskJava8Style::manageThread;
 
-        Runnable run2 = () -> magageThread();
+        Runnable run2 = RunnableTaskJava8Style::manageThread;
 
         new Thread(task).start();
         new Thread(run2).start();
@@ -18,7 +18,7 @@ public class RunnableTaskJava8Style {
         log.info("End of main method!");
     }
 
-    static void magageThread() {
+    static void manageThread() {
         try {
             String name = Thread.currentThread().getName();
             log.info("Thread Name moment 1 {}", name);
