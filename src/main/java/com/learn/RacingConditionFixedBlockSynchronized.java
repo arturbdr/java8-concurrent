@@ -9,12 +9,12 @@ import java.util.stream.IntStream;
 import static com.learn.utils.ConcurrentUtils.stop;
 
 @Slf4j
-public class RacingConditionFixedBlockSyncronized {
+public class RacingConditionFixedBlockSynchronized {
     private int count = 0;
 
     public static void main(String[] args) {
 
-        RacingConditionFixedBlockSyncronized instance = new RacingConditionFixedBlockSyncronized();
+        RacingConditionFixedBlockSynchronized instance = new RacingConditionFixedBlockSynchronized();
         instance.test();
     }
 

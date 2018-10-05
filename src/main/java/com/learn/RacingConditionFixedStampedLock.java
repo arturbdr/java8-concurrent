@@ -23,28 +23,28 @@ public class RacingConditionFixedStampedLock {
 
     private void test() {
 
-        IntStream.range(0, 100000).forEach(i -> executor.submit(() -> {
-            long stamp = lock.writeLock();
-            number++;
-            lock.unlockWrite(stamp);
-
-        }));
+        IntStream.range(0, 100000).forEach(i -> executor.submit(this::increment));
 
         Runnable readTask = () -> {
             long stamp = lock.readLock();
             try {
-                log.info("number {}", number);
+                log.info("Correct number because of lock for reading {}", number);
             } finally {
                 lock.unlockRead(stamp);
             }
         };
 
         executor.submit(readTask);
-        executor.submit(readTask);
 
-        log.error("probably wrong {}", number);
+        log.info("probably wrong because no lock for reading {}", number);
         stop(executor);
 
+    }
+
+    private void increment() {
+        long stamp = lock.writeLock();
+        this.number++;
+        lock.unlockWrite(stamp);
     }
 
 }

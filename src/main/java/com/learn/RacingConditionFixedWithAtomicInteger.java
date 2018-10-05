@@ -13,7 +13,7 @@ import static com.learn.utils.ConcurrentUtils.stop;
 public class RacingConditionFixedWithAtomicInteger {
     private final ExecutorService executor = Executors.newFixedThreadPool(50);
     private AtomicInteger number = new AtomicInteger(0);
-    private Integer comumInt = 0;
+    private Integer commonInt = 0;
 
     public static void main(String[] args) {
 
@@ -25,13 +25,13 @@ public class RacingConditionFixedWithAtomicInteger {
 
         IntStream.range(0, 100000).forEach(i -> executor.submit(() -> {
             number.addAndGet(1);
-            comumInt++;
+            commonInt++;
 
         }));
 
         Runnable readTask = () -> {
             log.info("number.get() {}", number.get());
-            log.info("comumInt = {}", comumInt);
+            log.info("commonInt = {}", commonInt);
         };
 
         executor.submit(readTask);
