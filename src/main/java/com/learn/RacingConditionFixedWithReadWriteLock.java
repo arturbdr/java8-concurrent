@@ -1,6 +1,7 @@
 package com.learn;
 
 import lombok.extern.slf4j.Slf4j;
+import sun.jvm.hotspot.utilities.Assert;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -14,7 +15,7 @@ import static com.learn.utils.ConcurrentUtils.stop;
 @Slf4j
 public class RacingConditionFixedWithReadWriteLock {
     private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
-    private final ExecutorService executor = Executors.newFixedThreadPool(100);
+    private final ExecutorService executor = Executors.newFixedThreadPool(1000);
     private Integer number = 0;
 
     public static void main(String[] args) {
@@ -25,10 +26,10 @@ public class RacingConditionFixedWithReadWriteLock {
 
     private void test() {
 
-        IntStream.range(0, 1000)
+        IntStream.range(0, 10000)
                 .forEach(i -> executor.submit(() -> {
                     lock.writeLock().lock();
-                    sleep(10, TimeUnit.MILLISECONDS);
+                    sleep(1, TimeUnit.MILLISECONDS);
                     try {
                         number++;
                     } finally {
@@ -40,16 +41,19 @@ public class RacingConditionFixedWithReadWriteLock {
         Runnable readTask = () -> {
             lock.readLock().lock();
             try {
-                log.info("number {}", number);
+                log.info("with lock number {}", number);
             } finally {
                 lock.readLock().unlock();
             }
         };
 
+        Runnable readTaskMightFailWithoutReadLock = () -> log.info("without lock number {}", number);
+
         executor.submit(readTask);
-        executor.submit(readTask);
+        executor.submit(readTaskMightFailWithoutReadLock);
 
         stop(executor);
+        Assert.that(number == 10000, "Racing condition failed " + number);
 
     }
 
